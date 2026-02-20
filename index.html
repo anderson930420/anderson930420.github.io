@@ -3,210 +3,330 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Anderson Liu | Quant Lab</title>
-  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Anderson Liu | Quant Portfolio</title>
+  <meta name="description" content="Quant portfolio: pricing, risk, and research engineering." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #050810;
-      --card-bg: rgba(15, 23, 42, 0.6);
-      --accent: #0ea5e9;
-      --accent-secondary: #6366f1;
-      --text: #f8fafc;
+      --bg: #030712;
+      --panel: rgba(17, 24, 39, 0.7);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
       --muted: #94a3b8;
-      --border: rgba(255, 255, 255, 0.1);
+      --text: #f1f5f9;
+      --line: rgba(255, 255, 255, 0.1);
+      --radius: 16px;
+      --font-main: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
+    * { box-sizing: border-box; }
+    
     body {
       margin: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
+      font-family: var(--font-main);
+      background-color: var(--bg);
       background-image: 
-        radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(99, 102, 241, 0.15) 0%, transparent 40%);
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-
-    /* --- 玻璃擬態卡片 --- */
-    .glass-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 24px;
     }
-    .glass-card:hover { border-color: var(--accent); }
 
-    /* --- Header --- */
-    header {
+    /* --- Header & Navigation --- */
+    .topbar {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 60px;
-    }
-    .logo-area .name { font-size: 32px; font-weight: 800; background: linear-gradient(90deg, #fff, #7dd3fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .status-pill { background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; color: #4ade80; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-family: var(--font-mono); }
-
-    /* --- Layout --- */
-    .dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
-    @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } }
-
-    /* --- Chart Section --- */
-    .chart-container {
-      margin-top: 20px;
-      height: 250px;
-      width: 100%;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 24px;
     }
 
-    /* --- Project Styles --- */
-    .project-item { margin-bottom: 40px; }
-    .tech-tag { font-family: 'JetBrains Mono'; font-size: 12px; color: var(--accent); margin-bottom: 8px; display: block; }
-    
-    /* --- Skills List --- */
-    .skill-bar-wrap { margin-bottom: 15px; }
-    .skill-info { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
-    .bar-bg { background: rgba(255,255,255,0.05); height: 6px; border-radius: 10px; overflow: hidden; }
-    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-secondary)); transition: width 1s ease-out; }
+    .brand .name {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-    .btn-outline {
-      border: 1px solid var(--accent);
+    .brand .tag {
       color: var(--accent);
-      padding: 10px 20px;
-      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .nav { display: flex; gap: 12px; }
+    
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--line);
+      color: var(--text);
       text-decoration: none;
       font-size: 14px;
-      transition: all 0.2s;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
     }
-    .btn-outline:hover { background: var(--accent); color: white; }
+
+    .btn:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0;
+    }
+
+    /* --- Grid Layout --- */
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2::after {
+      content: "";
+      height: 1px;
+      background: var(--line);
+      flex-grow: 1;
+    }
+
+    /* --- Project Cards --- */
+    .proj-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .proj-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+      transform: scale(1.01);
+    }
+
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .proj-title { font-size: 20px; font-weight: 600; }
+    
+    .proj-tech {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .proj-desc {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    
+    .chip {
+      background: rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      border: 1px solid var(--line);
+    }
+
+    /* --- Sidebar Lists --- */
+    .sidebar-block {
+      margin-bottom: 32px;
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .skill-item span:first-child { color: var(--muted); }
+    .skill-item span:last-child { font-weight: 500; }
+
+    /* --- Footer --- */
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    /* --- New Section: Thesis/Background --- */
+    .background-note {
+      background: linear-gradient(to right, var(--accent-glow), transparent);
+      padding: 16px;
+      border-left: 2px solid var(--accent);
+      border-radius: 4px;
+      margin-bottom: 32px;
+      font-style: italic;
+      font-size: 14px;
+    }
 
   </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="name">Anderson Liu</div>
+        <div class="tag">Engineering Precision x Financial Markets</div>
+      </div>
+      <nav class="nav">
+        <a class="btn" href="https://github.com/anderson930420" target="_blank">GitHub</a>
+        <a class="btn" href="mailto:your-email@example.com">Contact</a>
+      </nav>
+    </header>
 
-<div class="container">
-  <header>
-    <div class="logo-area">
-      <div class="name">Anderson Liu</div>
-      <div style="color: var(--muted); font-size: 14px;">Quantitative Engineering & Pricing Research</div>
-    </div>
-    <div class="status-pill">● Available for Opportunities</div>
-  </header>
+    <section class="hero">
+      <div class="background-note">
+        Transitioning from <strong>Optics & Photonics</strong> to <strong>Quantitative Finance</strong>—applying wave physics intuition and rigorous numerical modeling to derivative pricing and risk.
+      </div>
+      <p>
+        I specialize in building robust financial software. My focus is on the intersection of 
+        mathematical elegance and engineering reliability—ensuring that models not only work in theory 
+        but are also performant, tested, and maintainable.
+      </p>
+    </section>
 
-  <div class="dashboard">
-    <div class="glass-card">
-      <div class="project-item">
-        <span class="tech-tag">// OPTION PRICING ENGINE</span>
-        <h2 style="margin: 0 0 10px 0;">Black-Scholes Analysis</h2>
-        <p style="color: var(--muted); line-height: 1.6;">
-          核心開發項目 <code>bs_pricer</code>。除了基本的 Greeks 計算，我實作了動態 P&L 分解與隱含波動率倒推算法。
-        </p>
+    <main class="grid">
+      <div class="content">
+        <h2>Featured Projects</h2>
         
-        <div class="chart-container">
-          <canvas id="payoffChart"></canvas>
-        </div>
-        
-        <div style="margin-top: 25px; display: flex; gap: 15px;">
-          <a href="https://github.com/anderson930420/bs_pricer" class="btn-outline">View Source Code</a>
-          <div style="font-size: 12px; color: var(--muted); align-self: center;">
-            * Chart shows Call Option Payoff vs Stock Price at Maturity
+        <div class="proj-card">
+          <div class="proj-header">
+            <div class="proj-title">Black–Scholes Pricing Engine</div>
+            <div class="proj-tech">Python / NumPy / Pytest</div>
+          </div>
+          <p class="proj-desc">
+            A production-ready pricing library featuring high-precision Greeks calculation, 
+            input domain validation (edge-case handling for T→0), and FIFO-based P&L tracking.
+          </p>
+          <div class="chips">
+            <span class="chip">Numerical Methods</span>
+            <span class="chip">Risk Sensitivity</span>
+            <span class="chip">Architecture Design</span>
+          </div>
+          <div style="margin-top:15px; font-size: 13px;">
+            <a href="https://github.com/anderson930420/bs_pricer" target="_blank">View Repository →</a>
           </div>
         </div>
-      </div>
 
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
-
-      <div class="project-item">
-        <span class="tech-tag">// NEXT MILESTONE</span>
-        <h3 style="margin: 0 0 10px 0;">Monte Carlo Simulation Framework</h3>
-        <p style="color: var(--muted);">
-          正在開發基於幾何布朗運動 (GBM) 的路徑模擬器，用於障礙期權 (Barrier Options) 的定價。
-        </p>
-      </div>
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 24px;">
-      <div class="glass-card" style="padding: 24px;">
-        <h3 style="font-size: 16px; margin-top: 0;">Technical Mastery</h3>
-        
-        <div class="skill-bar-wrap">
-          <div class="skill-info"><span>Python (NumPy/Pandas)</span><span>90%</span></div>
-          <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
-        </div>
-        
-        <div class="skill-bar-wrap">
-          <div class="skill-info"><span>Numerical Methods</span><span>85%</span></div>
-          <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+        <div class="proj-card">
+          <div class="proj-header">
+            <div class="proj-title">Heston Model Calibration (WIP)</div>
+            <div class="proj-tech">C++ / QuantLib</div>
+          </div>
+          <p class="proj-desc">
+            Implementing stochastic volatility models to capture the volatility smile. 
+            Focusing on Levenberg-Marquardt optimization for parameter fitting.
+          </p>
+          <div class="chips">
+            <span class="chip">Stochastic Calc</span>
+            <span class="chip">Optimization</span>
+            <span class="chip">C++20</span>
+          </div>
         </div>
 
-        <div class="skill-bar-wrap">
-          <div class="skill-info"><span>C++ / QuantLib</span><span>65%</span></div>
-          <div class="bar-bg"><div class="bar-fill" style="width: 65%;"></div></div>
-        </div>
-        
-        <div class="skill-bar-wrap">
-          <div class="skill-info"><span>Mathematics (SDE/PDE)</span><span>80%</span></div>
-          <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
+        <h2>Research Focus</h2>
+        <div class="proj-card">
+          <p class="proj-desc" style="margin-bottom:0;">
+            Currently exploring <strong>Variance Reduction Techniques</strong> in Monte Carlo simulations 
+            and <strong>Adjoint Algorithmic Differentiation (AAD)</strong> for efficient Greeks calculation 
+            in complex exotic structures.
+          </p>
         </div>
       </div>
 
-      <div class="glass-card" style="padding: 24px;">
-        <h3 style="font-size: 16px; margin-top: 0;">Education & Origin</h3>
-        <p style="font-size: 14px; color: var(--muted); margin-bottom: 0;">
-          背景源自<strong>光學工程</strong>，擅長處理波動方程與數值模擬。這份直覺讓我能更深刻地理解金融隨機過程中的「擴散」與「漂移」。
-        </p>
-      </div>
-    </div>
+      <aside class="sidebar">
+        <div class="sidebar-block">
+          <h2>Technical Stack</h2>
+          <div class="skill-item"><span>Languages</span><span>Python, C++, SQL</span></div>
+          <div class="skill-item"><span>Math</span><span>Calculus, SDE, Linear Algebra</span></div>
+          <div class="skill-item"><span>Tools</span><span>Git, Docker, Linux, MATLAB</span></div>
+          <div class="skill-item"><span>Libraries</span><span>NumPy, Pandas, SciPy</span></div>
+        </div>
+
+        <div class="sidebar-block">
+          <h2>Learning Path</h2>
+          <div class="skill-item"><span>Stochastic Vol</span><span>In Progress</span></div>
+          <div class="skill-item"><span>Fixed Income</span><span>Active Study</span></div>
+          <div class="skill-item"><span>Low Latency</span><span>Ramping Up</span></div>
+        </div>
+
+        <div class="sidebar-block">
+          <h2>Interests</h2>
+          <p style="font-size: 14px; color: var(--muted);">
+            High-fidelity audio, Computational Physics, and the intersection of Game Theory & Markets.
+          </p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      [ <span id="y"></span> ] ANDERSON LIU // QUANT_RESEARCH_ENGINEERING
+    </footer>
   </div>
-</div>
 
-<script>
-  // 建立一個簡單的 Payoff 圖表可視化
-  const ctx = document.getElementById('payoffChart').getContext('2d');
-  const strike = 100;
-  const labels = [];
-  const data = [];
-  const stockPrices = [];
-
-  for (let s = 60; s <= 140; s += 5) {
-    labels.push(s);
-    stockPrices.push(s);
-    data.push(Math.max(0, s - strike));
-  }
-
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Call Payoff',
-        data: data,
-        borderColor: '#0ea5e9',
-        backgroundColor: 'rgba(14, 165, 233, 0.2)',
-        borderWidth: 3,
-        fill: true,
-        tension: 0,
-        pointRadius: 4,
-        pointBackgroundColor: '#0ea5e9'
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
-        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
-      },
-      plugins: { legend: { display: false } }
-    }
-  });
-</script>
-
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
