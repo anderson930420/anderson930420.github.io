@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Anderson Liu | Quant Portfolio</title>
-  <meta name="description" content="Quant portfolio: pricing, risk, and research engineering." />
+  <meta name="description" content="Quant portfolio: pricing, validation, and research engineering." />
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
@@ -23,12 +23,12 @@
     }
 
     * { box-sizing: border-box; }
-    
+
     body {
       margin: 0;
       font-family: var(--font-main);
       background-color: var(--bg);
-      background-image: 
+      background-image:
         radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
       color: var(--text);
@@ -42,7 +42,7 @@
       padding: 60px 24px;
     }
 
-    /* --- Header & Navigation --- */
+    /* Header & Navigation */
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -50,6 +50,8 @@
       margin-bottom: 48px;
       border-bottom: 1px solid var(--line);
       padding-bottom: 24px;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
     .brand .name {
@@ -65,11 +67,11 @@
       color: var(--accent);
       font-family: var(--font-mono);
       font-size: 14px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
-    .nav { display: flex; gap: 12px; }
-    
+    .nav { display: flex; gap: 12px; flex-wrap: wrap; }
+
     .btn {
       padding: 8px 16px;
       border-radius: 8px;
@@ -86,27 +88,20 @@
       background: var(--accent-glow);
       border-color: var(--accent);
       transform: translateY(-2px);
+      text-decoration: none;
     }
 
-    /* --- Hero Section --- */
-    .hero {
-      margin-bottom: 40px;
-    }
-
-    .hero h1 {
-      font-size: 20px;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
+    /* Hero */
+    .hero { margin-bottom: 40px; }
 
     .hero p {
       font-size: 17px;
       color: var(--muted);
-      max-width: 700px;
+      max-width: 760px;
       margin: 0;
     }
 
-    /* --- Grid Layout --- */
+    /* Grid */
     .grid {
       display: grid;
       grid-template-columns: 1.4fr 0.6fr;
@@ -135,7 +130,7 @@
       flex-grow: 1;
     }
 
-    /* --- Project Cards --- */
+    /* Cards */
     .proj-card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -157,14 +152,17 @@
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .proj-title { font-size: 20px; font-weight: 600; }
-    
+
     .proj-tech {
       font-family: var(--font-mono);
       font-size: 12px;
       color: var(--muted);
+      white-space: nowrap;
     }
 
     .proj-desc {
@@ -174,7 +172,7 @@
     }
 
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    
+
     .chip {
       background: rgba(255,255,255,0.05);
       padding: 4px 10px;
@@ -183,10 +181,8 @@
       border: 1px solid var(--line);
     }
 
-    /* --- Sidebar Lists --- */
-    .sidebar-block {
-      margin-bottom: 32px;
-    }
+    /* Sidebar */
+    .sidebar-block { margin-bottom: 32px; }
 
     .skill-item {
       display: flex;
@@ -194,12 +190,13 @@
       padding: 8px 0;
       border-bottom: 1px solid var(--line);
       font-size: 14px;
+      gap: 12px;
     }
 
     .skill-item span:first-child { color: var(--muted); }
-    .skill-item span:last-child { font-weight: 500; }
+    .skill-item span:last-child { font-weight: 500; text-align: right; }
 
-    /* --- Footer --- */
+    /* Footer */
     .footer {
       margin-top: 80px;
       text-align: center;
@@ -208,17 +205,18 @@
       font-family: var(--font-mono);
     }
 
-    /* --- New Section: Thesis/Background --- */
+    /* Background note */
     .background-note {
       background: linear-gradient(to right, var(--accent-glow), transparent);
       padding: 16px;
       border-left: 2px solid var(--accent);
       border-radius: 4px;
-      margin-bottom: 32px;
+      margin-bottom: 18px;
       font-style: italic;
       font-size: 14px;
+      color: var(--muted);
     }
-
+    .background-note strong{ color: var(--text); font-style: normal; }
   </style>
 </head>
 
@@ -227,70 +225,77 @@
     <header class="topbar">
       <div class="brand">
         <div class="name">Anderson Liu</div>
-        <div class="tag">Engineering Precision x Financial Markets</div>
+        <div class="tag">Engineering Precision × Financial Markets</div>
       </div>
       <nav class="nav">
-        <a class="btn" href="https://github.com/anderson930420" target="_blank">GitHub</a>
-        <a class="btn" href="mailto:your-email@example.com">Contact</a>
+        <a class="btn" href="https://github.com/anderson930420" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://github.com/anderson930420/bs_pricer" target="_blank" rel="noreferrer">bs_pricer</a>
+        <a class="btn" href="mailto:anderson930420@arizona.edu">Contact</a>
       </nav>
     </header>
 
     <section class="hero">
       <div class="background-note">
-        Transitioning from <strong>Optics & Photonics</strong> to <strong>Quantitative Finance</strong>—applying wave physics intuition and rigorous numerical modeling to derivative pricing and risk.
+        Transitioning from <strong>Optics & Photonics</strong> to <strong>Quantitative Finance</strong>—bringing
+        rigorous modeling habits (validation, reproducibility, careful edge cases) into pricing and risk.
       </div>
       <p>
-        I specialize in building robust financial software. My focus is on the intersection of 
-        mathematical elegance and engineering reliability—ensuring that models not only work in theory 
-        but are also performant, tested, and maintainable.
+        I build quantitative finance tooling with an engineering mindset: clean interfaces, strong input checks,
+        testable logic, and transparent assumptions. Current work centers on option pricing foundations and
+        portfolio P&amp;L plumbing.
       </p>
     </section>
 
     <main class="grid">
       <div class="content">
         <h2>Featured Projects</h2>
-        
+
         <div class="proj-card">
           <div class="proj-header">
             <div class="proj-title">Black–Scholes Pricing Engine</div>
-            <div class="proj-tech">Python / NumPy / Pytest</div>
+            <div class="proj-tech">Python / NumPy / pytest</div>
           </div>
           <p class="proj-desc">
-            A production-ready pricing library featuring high-precision Greeks calculation, 
-            input domain validation (edge-case handling for T→0), and FIFO-based P&L tracking.
+            A Black–Scholes library with a clear validation boundary (type/domain checks and deterministic limits such as
+            <span style="font-family:var(--font-mono);">T → 0</span> and <span style="font-family:var(--font-mono);">σ → 0</span>),
+            plus value surface utilities and an evolving portfolio/P&amp;L module.
           </p>
           <div class="chips">
-            <span class="chip">Numerical Methods</span>
-            <span class="chip">Risk Sensitivity</span>
-            <span class="chip">Architecture Design</span>
+            <span class="chip">Pricing</span>
+            <span class="chip">Greeks</span>
+            <span class="chip">Validation</span>
+            <span class="chip">Surface grid</span>
+            <span class="chip">P&amp;L (FIFO lots)</span>
           </div>
           <div style="margin-top:15px; font-size: 13px;">
-            <a href="https://github.com/anderson930420/bs_pricer" target="_blank">View Repository →</a>
+            <a href="https://github.com/anderson930420/bs_pricer" target="_blank" rel="noreferrer">View repository →</a>
           </div>
         </div>
 
         <div class="proj-card">
           <div class="proj-header">
-            <div class="proj-title">Heston Model Calibration (WIP)</div>
-            <div class="proj-tech">C++ / QuantLib</div>
+            <div class="proj-title">Next Project (Roadmap)</div>
+            <div class="proj-tech">In progress</div>
           </div>
           <p class="proj-desc">
-            Implementing stochastic volatility models to capture the volatility smile. 
-            Focusing on Levenberg-Marquardt optimization for parameter fitting.
+            Building the next module on top of <span style="font-family:var(--font-mono);">bs_pricer</span>:
+            either (A) a Monte Carlo pricer with variance reduction and Greeks, or (B) an implied-volatility solver
+            and volatility smile visualization. Focus: correctness, tests, and reproducible experiments.
           </p>
           <div class="chips">
-            <span class="chip">Stochastic Calc</span>
-            <span class="chip">Optimization</span>
-            <span class="chip">C++20</span>
+            <span class="chip">Monte Carlo</span>
+            <span class="chip">Variance reduction</span>
+            <span class="chip">Implied vol</span>
+            <span class="chip">Experiments</span>
           </div>
         </div>
 
         <h2>Research Focus</h2>
         <div class="proj-card">
           <p class="proj-desc" style="margin-bottom:0;">
-            Currently exploring <strong>Variance Reduction Techniques</strong> in Monte Carlo simulations 
-            and <strong>Adjoint Algorithmic Differentiation (AAD)</strong> for efficient Greeks calculation 
-            in complex exotic structures.
+            Currently studying <strong>stochastic processes</strong> and <strong>risk sensitivities</strong>,
+            with emphasis on practical engineering details: numerical stability, test design, and clear
+            model assumptions for real usage.
           </p>
         </div>
       </div>
@@ -298,30 +303,30 @@
       <aside class="sidebar">
         <div class="sidebar-block">
           <h2>Technical Stack</h2>
-          <div class="skill-item"><span>Languages</span><span>Python, C++, SQL</span></div>
-          <div class="skill-item"><span>Math</span><span>Calculus, SDE, Linear Algebra</span></div>
-          <div class="skill-item"><span>Tools</span><span>Git, Docker, Linux, MATLAB</span></div>
-          <div class="skill-item"><span>Libraries</span><span>NumPy, Pandas, SciPy</span></div>
+          <div class="skill-item"><span>Languages</span><span>Python, MATLAB (C++/SQL learning)</span></div>
+          <div class="skill-item"><span>Math</span><span>Calculus, Probability, Linear Algebra</span></div>
+          <div class="skill-item"><span>Tools</span><span>Git, CLI, VS Code</span></div>
+          <div class="skill-item"><span>Libraries</span><span>NumPy, Pandas (SciPy learning)</span></div>
         </div>
 
         <div class="sidebar-block">
-          <h2>Learning Path</h2>
-          <div class="skill-item"><span>Stochastic Vol</span><span>In Progress</span></div>
-          <div class="skill-item"><span>Fixed Income</span><span>Active Study</span></div>
-          <div class="skill-item"><span>Low Latency</span><span>Ramping Up</span></div>
+          <h2>Focus</h2>
+          <div class="skill-item"><span>Pricing</span><span>Options (foundations)</span></div>
+          <div class="skill-item"><span>Risk</span><span>Greeks / P&amp;L</span></div>
+          <div class="skill-item"><span>Engineering</span><span>Validation / tests</span></div>
         </div>
 
         <div class="sidebar-block">
           <h2>Interests</h2>
-          <p style="font-size: 14px; color: var(--muted);">
-            High-fidelity audio, Computational Physics, and the intersection of Game Theory & Markets.
+          <p style="font-size: 14px; color: var(--muted); margin:0;">
+            Quant research engineering, numerical methods, and model validation discipline from physics/engineering.
           </p>
         </div>
       </aside>
     </main>
 
     <footer class="footer">
-      [ <span id="y"></span> ] ANDERSON LIU // QUANT_RESEARCH_ENGINEERING
+      [ <span id="y"></span> ] ANDERSON LIU // QUANT_PORTFOLIO
     </footer>
   </div>
 
